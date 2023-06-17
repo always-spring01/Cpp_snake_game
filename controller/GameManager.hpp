@@ -18,12 +18,13 @@
 class GameManager {
 private:
   Board board; ScoreBoard scoreboard; MissionBoard missionboard;
-  bool game_over;
+  bool game_over, game_clear;
   Snake snake;
   int bLimit, gLimit, pLimit, gateLimit, gCount, pCount, gateCount, gateCnt;
   clock_t starttimer, currenttimer; // 타이머
   Gate firstGate, secondGate;
   bool isGateOpen, isEnterGate, isMb, isMgi, isMpi, isMgate;
+  char direction[8];
 
 public:
   GameManager(int level) {
@@ -33,7 +34,7 @@ public:
     gLimit = board.getGrowthCnt();
     pLimit = board.getPoisonCnt();
     gateLimit = board.getGateCnt();
-    missionboard = MissionBoard("20", std::to_string(gLimit).c_str(), std::to_string(pLimit).c_str(), "2");
+    missionboard = MissionBoard(std::to_string(bLimit).c_str(), std::to_string(gLimit).c_str(), std::to_string(pLimit).c_str(), std::to_string(gateLimit).c_str());
     gCount = pCount = gateCount = gateCnt = 0;
     isMb = isMgi = isMpi = isMgate = FALSE;
     initailize();
@@ -41,7 +42,7 @@ public:
 
   void initailize() {
     board.initialize();
-    game_over = false;
+    game_over = game_clear = false;
     isGateOpen = isEnterGate = false;
     srand(time(NULL));
     snake.setDirection(down);
@@ -133,12 +134,16 @@ public:
 
   bool isOver() { return game_over; }
 
+  bool isClear() { return game_clear; }
+
 private:
   void checkMission() {
     if (snake.getBodyLength() > bLimit - 1) isMb = true;
     if (gCount > gLimit-1) isMgi = true;
     if (pCount > pLimit-1) isMpi = true;
     if (gateCount > gateLimit-1) isMgate = true;
+
+    if (isMb && isMgi && isMpi && isMgate) game_clear = true;
   }
 
   void resetTimmer() { starttimer = time(NULL); }
@@ -186,8 +191,8 @@ private:
         nextCol = firstGate.getCol();
       }
 
-      //! 이슈: firstGate와 secondGate가 같은 벽에 있다면 에러가 발생한다.
-      //* 출구 게이트가 벽의 가장자리에 있는 경우
+      // ! 이슈: firstGate와 secondGate가 같은 벽에 있다면 에러가 발생한다.
+      // * 출구 게이트가 벽의 가장자리에 있는 경우
       if (nextRow == 0) {
         // 상단 게이트에서 아래로 내려오는 경우
         snake.setDirection(down);
@@ -206,8 +211,7 @@ private:
         next.setCoordinates(nextRow, nextCol - 1);
       }
 
-      // Todo: 출구 게이트가 중간 벽에 있는 경우
-      // ...
+      //* 출구 게이트가 벽의 중간에 있는 경우
 
       insertEmpty();
       break;

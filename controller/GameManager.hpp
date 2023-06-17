@@ -90,7 +90,7 @@ public:
   void updateState() {
     handleNextPiece(snake.nextHead());
 
-    if (checkTimmer(30)) { // 30초 지날 때 마다 item reset 구현
+    if (checkTimmer(16)) { // 16초 지날 때 마다 item reset 구현
       resetItem();
       createItem();
     }

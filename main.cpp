@@ -24,7 +24,10 @@ int main(int argc, char **argv) {
     game.redraw();
 
     // 4 : go to 1, unless game over
-    if (game.isClear()) game = GameManager(++i);
+    if (game.isClear()) {
+      if (i < 2) game = GameManager(++i);
+      else break;
+    }
   }
 
   getch();

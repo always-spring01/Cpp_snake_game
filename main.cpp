@@ -2,6 +2,7 @@
 #include "controller/GameManager.hpp"
 
 int main(int argc, char **argv) {
+  int i = 0;
   initscr();
   refresh();
 
@@ -10,7 +11,7 @@ int main(int argc, char **argv) {
 
   curs_set(0);
 
-  GameManager game(0);
+  GameManager game(i);
   
   while (!game.isOver()) {
     // 1 : User input
@@ -23,6 +24,10 @@ int main(int argc, char **argv) {
     game.redraw();
 
     // 4 : go to 1, unless game over
+    if (game.isClear()) {
+      if (i < 2) game = GameManager(++i);
+      else break;
+    }
   }
 
   getch();

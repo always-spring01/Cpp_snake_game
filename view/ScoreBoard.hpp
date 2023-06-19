@@ -45,8 +45,8 @@ public:
 
     void loadScore(const char* currentLength = "4", const char* growth = "0", const char* poison = "0", const char* gate = "0") {
         mvwaddstr(board_win, 4, 8, currentLength);
-        mvwaddstr(board_win, 4, 9,  " / ");
-        mvwaddstr(board_win, 4, 12, maxLength);
+        mvwaddstr(board_win, 4, 10,  " / ");
+        mvwaddstr(board_win, 4, 13, maxLength);
         mvwaddstr(board_win, 5, 8, growth);
         mvwaddstr(board_win, 6, 8, poison);
         mvwaddstr(board_win, 7, 8, gate);

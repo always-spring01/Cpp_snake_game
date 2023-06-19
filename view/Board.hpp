@@ -32,12 +32,12 @@ public:
 
   void initColor() {
     init_pair(0, 1, 0); // Deafult (블랙, 블랙)
-    init_pair(1, 1, 7); // 배경색 (블랙, 화이트)
-    init_pair(2, 1, 2); // 사과 (그린, 그린)
-    init_pair(3, 1, 4); // 독사과 (레드, 레드)
-    init_pair(4, 1, 8); // 벽 (그레이, 그레이)
-    init_pair(5, 1, 5); // 지렁이 (브라운, 브라운)
-    init_pair(6, 1, 3); // 게이트 (시안, 시안)
+    init_pair(1, 7, 7); // 배경색 (블랙, 화이트)
+    init_pair(2, 2, 2); // 사과 (그린, 그린)
+    init_pair(3, 4, 4); // 독사과 (레드, 레드)
+    init_pair(4, 8, 8); // 벽 (그레이, 그레이)
+    init_pair(5, 5, 5); // 지렁이 (브라운, 브라운)
+    init_pair(6, 3, 3); // 게이트 (시안, 시안)
   }
 
   void addAt(int row, int col, chtype icon, int n) {
